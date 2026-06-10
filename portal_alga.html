@@ -1,0 +1,472 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,sans-serif)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;justify-content:center}
+.ntab{padding:6px 14px;border-radius:8px;border:0.5px solid #AFA9EC;font-size:12px;cursor:pointer;background:#fff;color:#534AB7;font-weight:500;transition:all .15s}
+.ntab.on{background:#534AB7;color:#fff;border-color:#534AB7}
+.screen{background:#EEEDFE;border-radius:16px;min-height:560px;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1.5rem 1rem;position:relative;overflow:hidden}
+.topbar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;z-index:2}
+.ibadge{font-size:10px;padding:3px 9px;border-radius:20px;background:#fff;color:#3C3489;border:0.5px solid #AFA9EC;font-weight:500}
+.main-row{display:flex;gap:1.2rem;align-items:flex-start;width:100%;z-index:2;flex:1}
+.right-col{flex:1;display:flex;flex-direction:column;gap:10px;padding-top:4px}
+.card{background:#fff;border-radius:12px;border:0.5px solid #AFA9EC;padding:.9rem 1rem}
+.ctitle{font-size:14px;font-weight:500;color:#3C3489;margin:0 0 5px}
+.cbody{font-size:12.5px;color:#534AB7;line-height:1.7;margin:0}
+.stars-row{display:flex;gap:8px;justify-content:center}
+.star-wrap{display:flex;flex-direction:column;align-items:center;gap:3px}
+.star{font-size:26px;color:#CCC;transition:all .4s}
+.star.lit{transform:scale(1.2)}
+.sname{font-size:10px;color:#888;text-align:center;max-width:66px;line-height:1.3}
+.sname.lit{color:#534AB7;font-weight:500}
+.btn-row{display:flex;gap:10px;justify-content:center;z-index:2;margin-top:6px;flex-wrap:wrap}
+.btn-p{background:#534AB7;color:#fff;border:none;border-radius:8px;padding:10px 26px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-p:hover{background:#3C3489}
+.btn-o{background:transparent;color:#534AB7;border:1.5px solid #534AB7;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-o:hover{background:#EEEDFE}
+.guide-box{background:#E1F5EE;border-radius:10px;padding:8px 12px;border:0.5px solid #5DCAA5}
+.gdot{width:18px;height:18px;border-radius:50%;background:#1D9E75;color:#fff;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section{display:none;width:100%}
+.section.on{display:flex;flex-direction:column;gap:12px}
+</style>
+
+<div class="nav">
+  <button class="ntab on" onclick="showTab('portal')">Portal entrada</button>
+  <button class="ntab" onclick="showTab('feedback')">Mi feedback</button>
+  <button class="ntab" onclick="showTab('retro')">Retroalimentación</button>
+</div>
+
+<div id="portal">
+<div class="screen">
+  <div style="position:absolute;width:110px;height:110px;border-radius:50%;background:#7F77DD;opacity:.07;top:-25px;left:-25px"></div>
+  <div style="position:absolute;width:70px;height:70px;border-radius:50%;background:#1D9E75;opacity:.07;bottom:50px;right:-15px"></div>
+
+  <div class="topbar">
+    <div style="display:flex;gap:6px">
+      <span class="ibadge">Alvernia</span>
+      <span class="ibadge">Gabriel Restrepo Moreno</span>
+    </div>
+    <span style="font-size:12px;font-weight:500;color:#534AB7;background:#fff;padding:4px 14px;border-radius:20px;border:0.5px solid #AFA9EC">Sistema ALGA</span>
+  </div>
+
+  <div class="main-row">
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <canvas id="algaC" width="155" height="170" style="width:155px;height:170px"></canvas>
+    </div>
+    <div class="right-col">
+      <div class="card">
+        <p class="ctitle">¡Bienvenido/a al Sistema ALGA!</p>
+        <p class="cbody" id="wText">Presiona <strong style="font-weight:500">Iniciar</strong> para que ALGA te explique cómo funciona este espacio de aprendizaje...</p>
+      </div>
+      <div style="background:#fff;border-radius:12px;border:1.5px dashed #AFA9EC;padding:.9rem 1rem">
+        <p style="font-size:10px;font-weight:500;color:#0F6E56;text-transform:uppercase;letter-spacing:.06em;margin:0 0 5px;display:flex;align-items:center;gap:5px">
+          <span style="width:7px;height:7px;border-radius:50%;background:#1D9E75;display:inline-block"></span>
+          Feedback de hoy
+        </p>
+        <p style="font-size:12.5px;color:#3C3489;line-height:1.7;margin:0;font-style:italic">Tu docente dejó una retroalimentación para ti. Cuando estés listo, presiona "Ver mi feedback" para comenzar los retos.</p>
+      </div>
+      <div class="guide-box">
+        <p style="font-size:10px;font-weight:500;color:#0F6E56;text-transform:uppercase;letter-spacing:.06em;margin:0 0 7px">¿Cómo funciona?</p>
+        <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px"><div class="gdot">1</div><p style="font-size:12px;color:#085041;margin:0;line-height:1.4">ALGA te explica el feedback de tu profe</p></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px"><div class="gdot">2</div><p style="font-size:12px;color:#085041;margin:0;line-height:1.4">Completas 5 retos para interpretarlo</p></div>
+        <div style="display:flex;gap:8px;align-items:flex-start"><div class="gdot">3</div><p style="font-size:12px;color:#085041;margin:0;line-height:1.4">Ganas tu identidad de Maestro/a ALGA</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width:100%;z-index:2;margin-top:4px">
+    <p style="font-size:10px;font-weight:500;color:#534AB7;text-transform:uppercase;letter-spacing:.06em;text-align:center;margin:0 0 7px">Tu progreso de misiones</p>
+    <div class="stars-row">
+      <div class="star-wrap"><span class="star" id="s1">★</span><span class="sname" id="n1">Explorador/a</span></div>
+      <div class="star-wrap"><span class="star" id="s2">★</span><span class="sname" id="n2">Analista</span></div>
+      <div class="star-wrap"><span class="star" id="s3">★</span><span class="sname" id="n3">Constructor/a</span></div>
+      <div class="star-wrap"><span class="star" id="s4">★</span><span class="sname" id="n4">Espejo</span></div>
+      <div class="star-wrap"><span class="star" id="s5">★</span><span class="sname" id="n5">Maestro/a</span></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-p" onclick="startW()">▶ Iniciar con ALGA</button>
+    <button class="btn-o" onclick="showTab('feedback')">Ver mi feedback →</button>
+  </div>
+  <p style="font-size:10px;color:#888;text-align:center;margin-top:6px">Medellín · Innovación Educativa · UPB</p>
+</div>
+</div>
+
+<div id="feedback" class="section">
+<div class="screen">
+  <div class="topbar">
+    <div style="display:flex;gap:6px"><span class="ibadge">Alvernia</span><span class="ibadge">Gabriel Restrepo Moreno</span></div>
+    <span style="font-size:12px;font-weight:500;color:#534AB7;background:#fff;padding:4px 14px;border-radius:20px;border:0.5px solid #AFA9EC">Sistema ALGA</span>
+  </div>
+  <div style="width:100%;z-index:2;margin-bottom:8px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <div style="width:32px;height:32px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0">✉</div>
+      <div><p style="font-size:14px;font-weight:500;color:#3C3489;margin:0">Mi feedback de hoy</p><p style="font-size:11px;color:#888;margin:0">Escena 2 de 12 · Reto 1 próximamente</p></div>
+    </div>
+    <div class="card" style="margin-bottom:8px">
+      <p style="font-size:10px;font-weight:500;color:#0F6E56;text-transform:uppercase;letter-spacing:.06em;margin:0 0 7px">Retroalimentación del docente</p>
+      <p style="font-size:13px;color:#26215C;line-height:1.8;margin:0;font-style:italic">"Tu trabajo muestra esfuerzo y comprensión del tema. La estructura del texto está bien organizada. Sin embargo, algunos argumentos necesitan más evidencia para sustentarlos. Te sugiero revisar los párrafos 2 y 3 e incluir ejemplos concretos que apoyen tus ideas principales."</p>
+      <div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap">
+        <span style="font-size:11px;padding:3px 10px;border-radius:20px;background:#E1F5EE;color:#0F6E56;border:0.5px solid #5DCAA5">Logros reconocidos</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:20px;background:#FAEEDA;color:#854F0B;border:0.5px solid #FAC775">Areas de mejora</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:20px;background:#EEEDFE;color:#3C3489;border:0.5px solid #AFA9EC">Lengua castellana</span>
+      </div>
+    </div>
+    <div style="background:#EEEDFE;border-radius:10px;padding:9px 12px;border:0.5px solid #AFA9EC">
+      <p style="font-size:12px;color:#534AB7;margin:0;line-height:1.5"><strong style="font-weight:500">Instrucción:</strong> Lee este feedback dos veces completo antes de continuar. Cuando te sientas listo/a, presiona "Comenzar Reto 1".</p>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:center;z-index:2;margin-top:auto">
+    <button class="btn-o" onclick="showTab('portal')">← Volver</button>
+    <a href="retos_completos.html"><button class="btn-p" style="background:#1D9E75">Comenzar Reto 1 →</button></a>
+  </div>
+</div>
+</div>
+
+
+<div id="retro" class="section">
+<div class="screen" style="padding:1.2rem;background:#F0FBF7;min-height:560px">
+  <div class="topbar" style="margin-bottom:1rem">
+    <div style="display:flex;gap:6px">
+      <span class="ibadge">Alvernia</span>
+      <span class="ibadge">Gabriel Restrepo Moreno</span>
+    </div>
+    <span style="font-size:12px;font-weight:500;color:#534AB7;background:#fff;padding:4px 14px;border-radius:20px;border:0.5px solid #AFA9EC">Sistema ALGA</span>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+    <div style="width:36px;height:36px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0">✅</div>
+    <div>
+      <p style="font-size:15px;font-weight:500;color:#085041;margin:0">Cierre del proceso ALGA</p>
+      <p style="font-size:12px;color:#1D9E75;margin:0">Has completado los 5 retos y entregaste tu segunda versión</p>
+    </div>
+  </div>
+
+<div id="alga-form-wrap" style="width:100%">
+<style>
+.af-hero{background:#534AB7;border-radius:12px;padding:1.2rem 1.2rem 1rem;margin-bottom:1rem;position:relative;overflow:hidden}
+.af-hero-bg{position:absolute;width:100px;height:100px;border-radius:50%;background:#7F77DD;opacity:.18;top:-25px;right:-25px;pointer-events:none}
+.af-hero-bg2{position:absolute;width:60px;height:60px;border-radius:50%;background:#1D9E75;opacity:.15;bottom:-10px;left:30px;pointer-events:none}
+.af-tag{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#CECBF6;margin-bottom:5px;position:relative;z-index:1}
+.af-htitle{font-size:17px;font-weight:500;color:#fff;margin-bottom:3px;position:relative;z-index:1}
+.af-hsub{font-size:12px;color:#AFA9EC;line-height:1.5;position:relative;z-index:1}
+.af-pb-labels{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:5px}
+.af-pb-track{height:5px;background:#E1E0F5;border-radius:99px;overflow:hidden;margin-bottom:1rem}
+.af-pb-fill{height:5px;background:#534AB7;border-radius:99px;transition:width .4s ease;width:0%}
+.af-slabel{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#534AB7;margin-bottom:8px;margin-top:4px;display:flex;align-items:center;gap:5px}
+.af-card{background:#fff;border:0.5px solid #AFA9EC;border-radius:12px;padding:.9rem 1rem;margin-bottom:.8rem}
+.af-qnum{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#EEEDFE;color:#534AB7;font-size:10px;font-weight:500;margin-right:7px;flex-shrink:0}
+.af-qlabel{font-size:13px;font-weight:500;color:#26215C;display:flex;align-items:flex-start;margin-bottom:8px;line-height:1.5}
+.af-qsub{font-size:11.5px;color:#888;margin-bottom:9px;margin-left:27px;line-height:1.5}
+.af-input{width:100%;border:0.5px solid #AFA9EC;border-radius:8px;padding:9px 11px;font-size:12.5px;resize:vertical;min-height:68px;font-family:inherit;color:#26215C;background:#fff;outline:none;transition:border-color .15s;line-height:1.5}
+.af-input:focus{border-color:#534AB7}
+.af-text-input{width:100%;border:0.5px solid #AFA9EC;border-radius:8px;padding:9px 11px;font-size:12.5px;font-family:inherit;color:#26215C;background:#fff;outline:none}
+.af-text-input:focus{border-color:#534AB7}
+.af-scale-row{display:flex;gap:5px;flex-wrap:wrap}
+.af-sb{width:38px;height:38px;border-radius:8px;border:0.5px solid #AFA9EC;background:#fff;font-size:13px;font-weight:500;cursor:pointer;color:#888;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.af-sb:hover{border-color:#AFA9EC;background:#EEEDFE}
+.af-sb.afs{background:#534AB7;color:#fff;border-color:#534AB7}
+.af-scale-ends{display:flex;justify-content:space-between;font-size:10px;color:#888;margin-top:3px}
+.af-pill-row{display:flex;gap:5px;flex-wrap:wrap}
+.af-pill{font-size:11.5px;padding:5px 12px;border-radius:99px;border:0.5px solid #AFA9EC;background:#fff;color:#26215C;cursor:pointer;transition:all .15s}
+.af-pill:hover{border-color:#AFA9EC;background:#EEEDFE}
+.af-pill.afs{background:#534AB7;color:#fff;border-color:#534AB7}
+.af-emo-row{display:flex;gap:6px;flex-wrap:wrap}
+.af-emo{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:5px 8px;border-radius:8px;border:0.5px solid #AFA9EC;background:#fff;transition:all .15s;min-width:44px}
+.af-emo:hover{border-color:#AFA9EC;background:#EEEDFE}
+.af-emo.afs{border-color:#534AB7;background:#EEEDFE}
+.af-emo-icon{font-size:20px}
+.af-emo-lbl{font-size:9.5px;color:#888;text-align:center;line-height:1.2}
+.af-emo.afs .af-emo-lbl{color:#534AB7;font-weight:500}
+.af-tip{background:#E1F5EE;border-radius:8px;padding:7px 10px;border:0.5px solid #5DCAA5;font-size:11.5px;color:#085041;line-height:1.5;margin-top:8px;display:flex;gap:7px;align-items:flex-start}
+.af-badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500}
+.af-badge-p{background:#EEEDFE;color:#3C3489;border:0.5px solid #AFA9EC}
+.af-badge-g{background:#E1F5EE;color:#0F6E56;border:0.5px solid #5DCAA5}
+.af-badge-a{background:#FAEEDA;color:#854F0B;border:0.5px solid #FAC775}
+.af-divider{height:0.5px;background:#AFA9EC;opacity:.4;margin:.8rem 0}
+.af-submit{width:100%;padding:13px;background:#534AB7;color:#fff;border:none;border-radius:12px;font-size:13.5px;font-weight:500;cursor:pointer;transition:background .15s;margin-top:4px}
+.af-submit:hover{background:#3C3489}
+.af-submit:disabled{background:#AFA9EC;cursor:not-allowed}
+.af-cert{display:none;background:#fff;border:0.5px solid #AFA9EC;border-radius:12px;padding:1.5rem;text-align:center}
+.af-cert.afshow{display:block}
+</style>
+
+<div class="af-hero">
+  <div class="af-hero-bg"></div>
+  <div class="af-hero-bg2"></div>
+  <div class="af-tag">Sistema ALGA · Cierre del proceso</div>
+  <div class="af-htitle">¡Lo lograste! Ahora reflexionemos juntos</div>
+  <div class="af-hsub">Completaste los 5 retos y enviaste tu segunda versión. Este formulario es el último paso — no hay respuestas malas, solo tu voz auténtica.</div>
+</div>
+
+<div class="af-pb-labels"><span id="af-pblabel">0 de 8 respondidas</span><span id="af-pbpct">0%</span></div>
+<div class="af-pb-track"><div class="af-pb-fill" id="af-pbfill"></div></div>
+
+<div id="af-body">
+
+  <div class="af-slabel">📋 Primero, cuéntanos quién eres</div>
+
+  <div class="af-card">
+    <div class="af-qlabel"><span class="af-qnum">1</span>¿Cuál es tu nombre completo y en qué grado estás?</div>
+    <div class="af-qsub">Así la profe puede conectar tus respuestas con tu proceso.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+      <input type="text" class="af-text-input" id="af-q1n" placeholder="Tu nombre completo" oninput="afProgress()">
+      <select class="af-text-input" id="af-q1g" onchange="afProgress()" style="cursor:pointer">
+        <option value="">Selecciona tu grado</option>
+        <option value="9">Grado 9°</option>
+        <option value="10">Grado 10°</option>
+        <option value="11">Grado 11°</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="af-card">
+    <div class="af-qlabel"><span class="af-qnum">2</span>¿Cuál es el enlace de tu segunda versión del trabajo?</div>
+    <div class="af-qsub">Pega aquí el link de Canva, Wix, Drive o donde lo publicaste.</div>
+    <input type="url" class="af-text-input" id="af-q2" placeholder="https://..." oninput="afProgress()" style="width:100%">
+    <div class="af-tip">💡 Si aún no tienes enlace, escribe "en proceso" y actualiza después con tu profe.</div>
+  </div>
+
+  <div class="af-divider"></div>
+  <div class="af-slabel">🧠 Metacognición — ¿qué aprendiste del proceso?</div>
+
+  <div class="af-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div class="af-qlabel" style="margin-bottom:0"><span class="af-qnum">3</span>¿Qué cambios concretos hiciste en tu segunda versión?</div>
+      <span class="af-badge af-badge-p">Metacognición</span>
+    </div>
+    <div class="af-qsub">No lo que ibas a hacer — lo que SÍ hiciste. Sé tan específico/a como puedas.</div>
+    <textarea class="af-input" id="af-q3" placeholder="Por ejemplo: cambié el título, agregué dos argumentos nuevos en el párrafo 3, mejoré las imágenes..." oninput="afProgress()"></textarea>
+  </div>
+
+  <div class="af-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div class="af-qlabel" style="margin-bottom:0"><span class="af-qnum">4</span>¿Qué parte del feedback de ALGA te costó más trabajo entender o aplicar?</div>
+      <span class="af-badge af-badge-a">Dificultad</span>
+    </div>
+    <div class="af-qsub">Ser honesto/a aquí ayuda a tu profe a mejorar el proceso para todos.</div>
+    <textarea class="af-input" id="af-q4" placeholder="Escribe aquí con confianza..." oninput="afProgress()"></textarea>
+    <div class="af-tip">❤️ No hay nada malo en decir que algo fue difícil. Eso también es aprender.</div>
+  </div>
+
+  <div class="af-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px">
+      <div class="af-qlabel" style="margin-bottom:0"><span class="af-qnum">5</span>Después de este proceso, ¿qué tan seguro/a te sientes con el tema evaluado?</div>
+      <span class="af-badge af-badge-g">Autoevaluación</span>
+    </div>
+    <div class="af-qsub" style="margin-bottom:10px">Piensa en el tema de tu trabajo, no en el proceso de ALGA.</div>
+    <div class="af-scale-row" id="af-q5">
+      <button class="af-sb" data-v="1" onclick="afScale('af-q5',1)">1</button>
+      <button class="af-sb" data-v="2" onclick="afScale('af-q5',2)">2</button>
+      <button class="af-sb" data-v="3" onclick="afScale('af-q5',3)">3</button>
+      <button class="af-sb" data-v="4" onclick="afScale('af-q5',4)">4</button>
+      <button class="af-sb" data-v="5" onclick="afScale('af-q5',5)">5</button>
+    </div>
+    <div class="af-scale-ends"><span>Tengo muchas dudas aún</span><span>Me siento muy seguro/a</span></div>
+  </div>
+
+  <div class="af-divider"></div>
+  <div class="af-slabel">⭐ Evaluación de la experiencia ALGA</div>
+
+  <div class="af-card">
+    <div class="af-qlabel"><span class="af-qnum">6</span>¿Cuál de los 5 retos de ALGA te resultó más útil para entender el feedback?</div>
+    <div class="af-qsub">Selecciona el que más te aportó — o varios si aplica.</div>
+    <div class="af-pill-row" id="af-q6">
+      <button class="af-pill" onclick="afPill(this,'af-q6')">Reto 1 — Descifrar el mapa</button>
+      <button class="af-pill" onclick="afPill(this,'af-q6')">Reto 2 — Comparar versiones</button>
+      <button class="af-pill" onclick="afPill(this,'af-q6')">Reto 3 — Construir mejoras</button>
+      <button class="af-pill" onclick="afPill(this,'af-q6')">Reto 4 — Reflexión espejo</button>
+      <button class="af-pill" onclick="afPill(this,'af-q6')">Reto 5 — Compromiso Maestro/a</button>
+    </div>
+  </div>
+
+  <div class="af-card">
+    <div class="af-qlabel"><span class="af-qnum">7</span>¿Cómo fue tu experiencia emocional durante el proceso ALGA?</div>
+    <div class="af-qsub">Selecciona todas las que sientas que te describen.</div>
+    <div class="af-emo-row" id="af-q7">
+      <div class="af-emo" onclick="afEmo(this)"><span class="af-emo-icon">😤</span><span class="af-emo-lbl">Frustrado/a al inicio</span></div>
+      <div class="af-emo" onclick="afEmo(this)"><span class="af-emo-icon">🤔</span><span class="af-emo-lbl">Confundido/a</span></div>
+      <div class="af-emo" onclick="afEmo(this)"><span class="af-emo-icon">😌</span><span class="af-emo-lbl">Tranquilo/a</span></div>
+      <div class="af-emo" onclick="afEmo(this)"><span class="af-emo-icon">💪</span><span class="af-emo-lbl">Motivado/a</span></div>
+      <div class="af-emo" onclick="afEmo(this)"><span class="af-emo-icon">🤩</span><span class="af-emo-lbl">Enganchado/a</span></div>
+      <div class="af-emo" onclick="afEmo(this)"><span class="af-emo-icon">😰</span><span class="af-emo-lbl">Presionado/a</span></div>
+      <div class="af-emo" onclick="afEmo(this)"><span class="af-emo-icon">🎯</span><span class="af-emo-lbl">Enfocado/a</span></div>
+      <div class="af-emo" onclick="afEmo(this)"><span class="af-emo-icon">🌱</span><span class="af-emo-lbl">En crecimiento</span></div>
+    </div>
+    <div class="af-tip">💡 Tus emociones durante el aprendizaje son información valiosa — no hay emociones incorrectas aquí.</div>
+  </div>
+
+  <div class="af-divider"></div>
+  <div class="af-slabel">🚀 Cierre y proyección</div>
+
+  <div class="af-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+      <div class="af-qlabel" style="margin-bottom:0"><span class="af-qnum">8</span>Si pudieras escribirle una nota a la versión de ti que apenas recibió el primer feedback, ¿qué le dirías?</div>
+      <span class="af-badge af-badge-g">Cierre</span>
+    </div>
+    <div class="af-qsub">Esta es tu carta de cierre. No hay respuesta correcta — solo la tuya.</div>
+    <textarea class="af-input" id="af-q8" rows="4" placeholder="Querido/a yo del inicio: ..." oninput="afProgress()" style="min-height:85px"></textarea>
+    <div class="af-tip">🚀 Cuando nombramos lo que vivimos, lo integramos mejor. Esto es lo que hace que el aprendizaje dure.</div>
+  </div>
+
+  <button class="af-submit" id="af-submit" onclick="afSubmit()" disabled>✓ Enviar mi cierre del proceso ALGA</button>
+  <p style="font-size:10.5px;color:#888;text-align:center;margin-top:7px">Solo tu docente puede ver estas respuestas.</p>
+</div>
+
+<div class="af-cert" id="af-cert">
+  <div style="font-size:48px;margin-bottom:10px">🎓</div>
+  <p style="font-size:19px;font-weight:500;color:#26215C;margin-bottom:5px">¡Proceso ALGA completado!</p>
+  <p style="font-size:12.5px;color:#534AB7;line-height:1.7;margin-bottom:14px">Has cerrado el ciclo de aprendizaje: recibiste feedback, lo interpretaste, mejoraste tu trabajo y reflexionaste sobre tu proceso. Eso es lo que hacen los verdaderos Maestros del aprendizaje.</p>
+  <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px">
+    <span class="af-badge af-badge-p" style="font-size:11px;padding:3px 10px">Explorador/a del eco</span>
+    <span class="af-badge af-badge-g" style="font-size:11px;padding:3px 10px">Analista del feedback</span>
+    <span class="af-badge af-badge-a" style="font-size:11px;padding:3px 10px">Constructor/a de mejoras</span>
+    <span class="af-badge af-badge-p" style="font-size:11px;padding:3px 10px">Espejo crítico</span>
+    <span class="af-badge af-badge-g" style="font-size:11px;padding:3px 10px">Maestro/a ALGA</span>
+  </div>
+  <div style="background:#EEEDFE;border-radius:8px;padding:10px 14px;font-size:12px;color:#3C3489;line-height:1.6">
+    Tu docente recibirá tus respuestas y usará esta información para seguir mejorando el proceso contigo y con todo el grupo. Gracias por ser parte de ALGA.
+  </div>
+</div>
+
+<script>
+(function(){
+  var afScales={};
+  window.afScale=function(id,v){
+    afScales[id]=v;
+    document.querySelectorAll('#'+id+' .af-sb').forEach(function(b){
+      b.classList.toggle('afs',parseInt(b.getAttribute('data-v'))===v);
+    });
+    afProgress();
+  };
+  window.afPill=function(el,gid){
+    el.classList.toggle('afs');
+    afProgress();
+  };
+  window.afEmo=function(el){
+    el.classList.toggle('afs');
+    afProgress();
+  };
+  window.afProgress=function(){
+    var n=0;
+    var n1=document.getElementById('af-q1n');
+    var g1=document.getElementById('af-q1g');
+    if(n1&&n1.value.trim()&&g1&&g1.value)n++;
+    var q2=document.getElementById('af-q2');
+    if(q2&&q2.value.trim())n++;
+    var q3=document.getElementById('af-q3');
+    if(q3&&q3.value.trim())n++;
+    var q4=document.getElementById('af-q4');
+    if(q4&&q4.value.trim())n++;
+    if(afScales['af-q5'])n++;
+    if(document.querySelectorAll('#af-q6 .afs').length>0)n++;
+    if(document.querySelectorAll('#af-q7 .afs').length>0)n++;
+    var q8=document.getElementById('af-q8');
+    if(q8&&q8.value.trim())n++;
+    var pct=Math.round((n/8)*100);
+    var fill=document.getElementById('af-pbfill');
+    if(fill)fill.style.width=pct+'%';
+    var lbl=document.getElementById('af-pblabel');
+    if(lbl)lbl.textContent=n+' de 8 respondidas';
+    var pp=document.getElementById('af-pbpct');
+    if(pp)pp.textContent=pct+'%';
+    var btn=document.getElementById('af-submit');
+    if(btn)btn.disabled=(n<6);
+  };
+  window.afSubmit=function(){
+    if(document.getElementById('af-submit').disabled)return;
+    document.getElementById('af-body').style.display='none';
+    var cert=document.getElementById('af-cert');
+    cert.classList.add('afshow');
+  };
+  afProgress();
+})();
+</script>
+</div>
+
+  <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
+    <button class="btn-o" onclick="showTab('feedback')" style="background:transparent;color:#1D9E75;border:1.5px solid #1D9E75;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer">← Volver al feedback</button>
+  </div>
+</div>
+</div>
+
+
+<script>
+const c=document.getElementById('algaC');
+const cx=c?c.getContext('2d'):null;
+let t=0,sp=false,af=null,wi=0,wt=null;
+
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();}
+
+function draw(mO,bl,dy,ex,ey){
+  if(!cx)return;
+  cx.clearRect(0,0,155,170);
+  const ax=78,ay=72+dy;
+  cx.fillStyle='#534AB7';cx.beginPath();cx.arc(ax,ay,60,0,Math.PI*2);cx.fill();
+  cx.fillStyle='#7F77DD';cx.beginPath();cx.arc(ax,ay-11,37,0,Math.PI*2);cx.fill();
+  const ey2=ay-15+ey,es=15;
+  [-es,es].forEach(ox=>{
+    cx.fillStyle='#fff';cx.beginPath();cx.ellipse(ax+ox+ex,ey2,6,bl?1:6,0,0,Math.PI*2);cx.fill();
+    if(!bl){cx.fillStyle='#26215C';cx.beginPath();cx.arc(ax+ox+ex+0.5,ey2+0.5,3,0,Math.PI*2);cx.fill();}
+  });
+  const my=ay-1+ey;
+  cx.strokeStyle='#fff';cx.lineWidth=2;cx.lineCap='round';
+  if(mO>0.2){cx.fillStyle='#26215C';cx.beginPath();cx.ellipse(ax,my+3,7+mO*4,3+mO*5,0,0,Math.PI);cx.fill();}
+  else{cx.beginPath();cx.moveTo(ax-9,my+1);cx.quadraticCurveTo(ax,my+7,ax+9,my+1);cx.stroke();}
+  cx.fillStyle='#2E8B6A';rr(cx,ax-37,ay+36,74,28,8);cx.fill();
+  cx.fillStyle='#fff';cx.font='bold 13px Arial';cx.textAlign='center';cx.textBaseline='middle';cx.fillText('ALGA',ax,ay+50);
+  cx.fillStyle='#3C3489';rr(cx,ax-27,ay+64,16,26,7);cx.fill();rr(cx,ax+11,ay+64,16,26,7);cx.fill();
+  cx.fillStyle='#4a42a8';rr(cx,ax-61,ay+8,12,22,5);cx.fill();rr(cx,ax+49,ay+8,12,22,5);cx.fill();
+}
+
+function loop(){
+  t+=0.065;
+  const bl=(Math.sin(t*3.3)>0.93);
+  const dy=Math.sin(t*1.1)*(sp?4:2);
+  const ex=Math.sin(t*0.7)*1.5;
+  const ey=Math.cos(t*0.9)*1;
+  let mO=0;if(sp)mO=Math.abs(Math.sin(t*8))*0.65+0.15;
+  draw(mO,bl,dy,ex,ey);
+  af=requestAnimationFrame(loop);
+}
+
+const msg=`¡Hola! Soy ALGA, tu compañero de viaje en el aprendizaje. Me llamo así porque nací de dos colegios increíbles de Medellín: el Alvernia y el Gabriel Restrepo Moreno.\n\nHoy vas a comenzar una experiencia diferente. Cada vez que tu profe te deje un feedback, yo apareceré para ayudarte a comprenderlo y convertirlo en una oportunidad de mejora.\n\n¿Estás listo/a para comenzar? ¡Primera misión activada!`;
+
+function startW(){
+  sp=true;wi=0;
+  const el=document.getElementById('wText');
+  el.innerHTML='';clearInterval(wt);
+  wt=setInterval(()=>{
+    if(wi<msg.length){el.innerHTML=msg.substring(0,wi+1).replace(/\n/g,'<br>');wi++;}
+    else{clearInterval(wt);sp=false;litStars();}
+  },22);
+}
+
+const sc=['#CECBF6','#9FE1CB','#FAC775','#F0997B','#FFD700'];
+function litStars(){
+  let i=1;
+  const st=setInterval(()=>{
+    if(i>5){clearInterval(st);return;}
+    const s=document.getElementById('s'+i),n=document.getElementById('n'+i);
+    if(s){s.style.color=sc[i-1];s.classList.add('lit');}
+    if(n)n.classList.add('lit');
+    i++;
+  },400);
+}
+
+function showTab(id){
+  document.getElementById('portal').style.display=id==='portal'?'block':'none';
+  ['feedback','retro'].forEach(k=>{
+    const el=document.getElementById(k);
+    if(el){el.classList.remove('on');if(k===id)el.classList.add('on');}
+  });
+  document.querySelectorAll('.ntab').forEach((b,i)=>{
+    b.classList.remove('on');
+    const ids=['portal','feedback','retro'];
+    if(ids[i]===id)b.classList.add('on');
+  });
+}
+
+if(c){loop();draw(0,false,0,0,0);}
+</script>
